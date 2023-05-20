@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Đăng ký</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form th:action="@{/signup}" method="post" th:object = ${accountForm}>
+		        <h1>Tạo tài khoản</h1>
+		        <div class="dk">
+		            <input type="text" th:field = "*{fullName}" placeholder="Họ tên" />
+		            <span class="error" th:if="${fullNameError} != null" th:text="${fullNameError}"></span>
+		            
+		            <input type="text" th:field = "*{email}" placeholder="Email" />
+		            <span class="error" th:if="${emailError} != null" th:text="${emailError}"></span>
+		            
+		            <input type="text" th:field = "*{userName}" placeholder="Tên đăng nhập" />
+		            <span class="error" th:if="${userNameError} != null" th:text="${userNameError}"></span>
+		            
+		            <input type="password" th:field = "*{password}" placeholder="Mật khẩu" />
+		            <span class="error" th:if="${passwordError} != null" th:text="${passwordError}"></span>
+		            
+		            <input type="password" th:field = "*{confirmPassword}" placeholder="Xác nhận mật khẩu" />
+		            <span class="error" th:if="${confirmPasswordError} != null" th:text="${confirmPasswordError}"></span>
+		        </div>
+		        <button type="submit">Đăng ký</button>
+	        </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+            <form th:action="@{/j_spring_security_check}" method = "POST">
+		        <h1>Đăng nhập</h1>
+		        
+		        <div class="dn">
+		            <input name="username" placeholder="Tên đăng nhập" />
+		            <input type="password" name="password" placeholder="Mật khẩu" />
+		            <h th:if = "${error} != null" style="color: red">
+		            	Thông tin tài khoản hoặc mật khẩu không chính xác
+		            </h>
+		            
+		        </div>
+		        <div class="miss-pass">
+		            <a href="#">Quên mật khẩu?</a>
+		        </div>
+		        <button type="submit">Đăng nhập</button>
+	        </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                
+                <div class="overlay-panel overlay-right">
+                    <h1>Xin chào!</h1>
+                    <p>Bạn đã có tài khoản?</p>
+                    <button class="ghost" id="signUp">Đăng nhập</button>
+                </div>
+                <div class="overlay-panel overlay-left" id="test">
+                    <h1>Xin chào!</h1>
+                    <p>Bạn chưa có tài khoản</p>
+                    <button class="ghost" id="signIn">Đăng ký</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+
+        
+
+    </script>
+</body>
+
+</html>

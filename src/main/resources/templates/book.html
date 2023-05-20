@@ -1,0 +1,128 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Thêm/sửa sản phẩm</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+        
+        
+    </head>
+    	<th:block th:include="_header"></th:block>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>        
+        <!-- Link CSS -->
+        <link rel="stylesheet" type="text/css" href="../asset/css/detail.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/slider.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/navigation.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/menu-vertical.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/footer.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/search-bar.css"/>
+        <!-- Link JS -->
+        <script src="../jquery/slider.js"></script>
+        <script>
+        	function chooseFile(fileInput){
+        		if (fileInput.files && fileInput.files[0]){
+        			var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('#image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+        		}
+        	}
+        </script>
+        <!-- Phần nội dung của trang chủ -->
+        <content>         
+            <div class="container-fluid detail-container">
+                <div class="row">
+                    <!-- Thanh Menu đứng -->
+                    <nav class="col-md-2 menu-vertical">                
+                        <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="58" data-offset-bottom="250">
+                            <li th:each = "type: ${typeList}" class="menu-vertical-text">
+				                <a th:href="@{|/search?keyword=${type.name}&field=type|}" class="">
+				                	<span th:text = "${type.name}"></span>
+				                </a>
+				              </li>
+                        </ul>
+                    </nav>
+                    <!-- Kết thúc thanh menu đứng -->
+                    <div class="col-md-9 detail-page">
+                        <!-- Phần nội dung chính -->
+                        <!-- Thanh Tìm kiếm Sách -->
+                        <th:block th:include="/_search"></th:block>
+                        <!--Kết thúc thanh tìm kiếm sách -->
+                        <!-- Phần html của hiển thị sản phẩm -->
+                    <form th:action="@{/edit-book}" th:object="${book}"
+                    	  method="POST" enctype="multipart/form-data">
+                        <div class="row book-detail">
+                            <img class="book-image" id="image" th:src="@{|/bookImage?id=*{id}|}"/>
+                            
+                            <div class="book-information">
+                            	<p> <input type="hidden" th:field="*{id}"> </p>
+                            	<p> <input type="hidden" th:field="*{isNewBook}"> </p>
+                                <p>Tên sách : <input type="text" th:field="*{name}"/><br></p>
+                                <p>Tác giả : <input type="text"  th:value="*{printAuthors()}" name="authorInfo"/> <br></p>
+                                <p>Thể loại: <input type="text" th:value="*{printTypes()}" name="typeInfo"/></p>
+                                <p>Giá tiền : <input type="text" th:field="*{price}"/> VNĐ<br></p>
+                                <p>Tổng số trang: <input type="text" th:field="*{numberOfPage}"/></p>
+                                <p>Nhà xuất bản : <input type="text" th:value="*{publisher}" name="publisherName"/><br></p>
+                                <p>Ngày xuất bản : <input type="text" th:field="*{publishingDate}"/><br></p>
+                            </div>
+                            <div class="book-introduce"> 
+                            	<p>Tải ảnh lên</p>
+               					<p><input type="file" id="image" onchange="chooseFile(this)" 
+                                    accept="image/jpg" th:field="*{fileData}"/></p>
+                                <h1>Giới thiệu sách</h1>
+                                <p class="book-summary">
+                                	<input type="text" th:field="*{description}"/>
+                                </p>
+                                
+                                
+                                <p><button type="submit">Lưu</button></p>
+                            </div>
+                            
+                        </div>
+                      </form>
+                        <!-- Kết thúc phần html hiển thị sản phẩm -->
+                    </div>
+                </div>
+            </div>
+            <!-- Kết thúc phần hiệ\n sản phẩm của nội dung trang -->
+        </content> 
+    
+        <!-- Phần footer của trang web -->
+        <footer>
+            <!--<div class="footer-background"></div>-->
+            <div class="social-network">
+                <div class="social-network-title">Kết nối với chúng tôi</div>
+                <div class="social-network-button">
+                    <span class="facebook-button"></span>
+                    <span class="google-button"></span>
+                    <span class="twitter-button"></span>
+                    <span class="pinterest-button"></span>
+                </div>             
+            </div>
+            <a class="service" href="#">Dịch vụ</a>
+            <a class="policy" href="#">Chính sách</a>
+            <div class="location">
+                <div class="location-title">
+                    Địa chỉ của chúng tôi
+                </div>
+                
+            </div>
+            <div class="contact">
+                <div class="contact-title">
+                    Liên hệ
+                </div>
+                <div class="contact-phone">
+                    Hotline (1) : 087748352 <br><br>
+                    Hotline (2) : 089693447 <br><br>
+                    SĐT : 0915-505-325 <br>
+                </div>
+            </div>
+        </footer>
+        <!-- Kết thúc phần html của trang web -->
+    </body>
+</html>

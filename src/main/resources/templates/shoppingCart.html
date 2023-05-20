@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Giỏ hàng</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+   </head>
+   <body>
+      
+      <div class="page-title">Giỏ hàng</div>
+      
+      <th:block th:if="${cartInfo == null || cartInfo.cartLines == null || cartInfo.cartLines.empty}">
+         <h2>Giỏ hàng của bạn đang trống</h2>
+         <a th:href="@{/}">Xem danh sách mặt hàng</a>
+      </th:block>
+      
+      <th:block th:if="${cartInfo != null && cartInfo.cartLines != null && !cartInfo.cartLines.empty}">
+         <form method="POST" th:object="${cartInfo}">
+         <table border="1">
+         	<tr>
+         		<td>Tên</td>
+         		<td>Giá</td>
+         		<td>Số lượng</td>
+         		<td>Tổng tiền</td>
+         		<td></td>
+         	</tr>
+         	<tr th:each = "cartLine: ${cartInfo.cartLines}" >
+         		<td><span th:text = "${cartLine.book.name}"></span></td>
+         		<td><span th:text = "${cartLine.book.price}"></span></td>
+         		<td><span th:text = "${cartLine.quantity}"></span></td>
+         		<td><span th:text = "${cartLine.getAmount()}"></span></td>
+         		<td><a th:href="@{|/removeBook?bookID=${cartLine.book.id}|}">Xóa</a></td>
+         	</tr>
+         </table>
+	         <div>
+	         	Tổng: <span th:text="${cartInfo.getAmount()}"></span>VNĐ
+	         </div>
+	         <div>
+	         	<a class="navi-item" th:href="@{/}">Tiếp tục chọn hàng</a>   
+	         </div>
+	         <div>
+	         	<a th:href="@{/pay}">Đến trang thanh toán</a>
+	         </div>
+         </form>
+      </th:block>
+      <a th:href="@{/}">Về trang chủ</a>
+   </body>
+</html>

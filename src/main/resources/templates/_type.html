@@ -1,0 +1,11 @@
+<nav class="col-md-2 menu-vertical">
+            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="450">
+              <li th:each = "type: ${typeList}"
+                  th:class="${keyword!=null && keyword.equals(type.name)}?'menu-vertical-text active':'menu-vertical-text'">
+                <a th:href="@{|/search?keyword=${type.name}&field=type|}" class="">
+                	<span th:text = "${type.name}"></span>
+                </a>
+              </li>
+              
+            </ul>
+          </nav>

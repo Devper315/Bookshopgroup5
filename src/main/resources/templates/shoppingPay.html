@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Thanh toán</title>
+	</head>
+	<body>
+		<div>Giỏ hàng</div>
+		<form th:action="@{/confirm}" method="post">
+			<table border="1">
+	         	<tr>
+	         		<td>Tên</td>
+	         		<td>Giá</td>
+	         		<td>Số lượng</td>
+	         		<td>Thành tiền</td>
+	         	</tr>
+	         	<tr th:each = "cartLine: ${cartInfo.cartLines}" >
+	         		<td><span th:text = "${cartLine.book.name}"></span></td>
+	         		<td><span th:text = "${cartLine.book.price}"></span></td>
+	         		<td><span th:text = "${cartLine.quantity}"></span></td>
+	         		<td><span th:text = "${cartLine.getAmount()}"></span></td>
+	         	</tr>
+	         	
+	         </table>
+	         <div>Tổng: <span th:text = "${cartInfo.getAmount()}"></span>VNĐ</div>
+	         <button type="submit">Xác nhận đơn hàng</button>
+		</form>
+         <div>
+         	Thông tin giao hàng
+         </div>
+         <table th:object="${cartInfo.customer}" border="1">
+         	<tr>
+         		<td>Họ tên</td>
+         		<td th:text="*{fullName}"></td>
+         	</tr>
+         	<tr>
+         		<td>SĐT</td>
+         		<td th:text="*{phone}"></td>
+         	</tr>
+         	<tr>
+         		<td>Địa chỉ</td>
+         		<td th:text="*{address}"></td>
+         	</tr>
+         	<tr>
+         		<td>Email</td>
+         		<td th:text="*{account.email}"></td>
+         	</tr>
+         </table>
+	</body>
+</html>

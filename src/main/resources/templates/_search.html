@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<div class="row search-bar">
+            
+              <form class="form-inline" th:action="@{/search}" method="get">
+                <input
+                  type="text"
+                  name="keyword"
+                  placeholder="Nhập từ khóa"
+                  th:value="${type!=null && !field.equals('type')}?${keyword}:''"
+                />
+                
+                <select name="field" class="form-inline">
+                	<option value="name" th:if="${field == 'name'}" selected>Tìm theo tên</option>
+                	<option value="name" th:if="${field != 'name'}">Tìm theo tên</option>
+                	<option value="author" th:if="${field == 'author'}" selected>Tìm theo tác giả</option>
+                	<option value="author" th:if="${field != 'author'}">Tìm theo tác giả</option>
+                	<option value="publisher" th:if="${field == 'publisher'}" selected>Tìm theo NXB</option>
+                	<option value="publisher" th:if="${field != 'publisher'}">Tìm theo NXB</option>
+                </select>
+                <p><button type="submit">Tìm kiếm</button></p>
+              </form>
+              
+            </div>
+            </html>

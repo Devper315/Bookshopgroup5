@@ -1,0 +1,135 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	  <head>
+	    <title>Book | Trang chủ</title>
+	    <meta charset="UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	  </head>
+  	<th:block th:include="/_header"></th:block>
+  	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/slider.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navigation.css}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      th:href="@{/css/menu-vertical.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/footer.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/search-bar.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/menu.css}"/>
+    <script src="../jquery/slider.js"></script>
+    <!-- Start of Slide -->
+    <div class="container-fluid slider">
+      
+      <slider>
+        <div class="slider-list-image">
+          <div class="slider-list-image-container" id="slider-scrollbar-style">
+            <img class="slider-image" id="1"
+              th:src="@{/asset/img/slider/banner1.jpg}"/>
+            <img class="slider-image" id="2"
+              th:src="@{/asset/img/slider/banner2.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="3"
+              th:src="@{/asset/img/slider/banner3.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="4"
+              th:src="@{/asset/img/slider/banner4.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="5"
+              th:src="@{/asset/img/slider/banner5.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="6"
+              th:src="@{/asset/img/slider/banner6.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="7"
+              th:src="@{/asset/img/slider/banner7.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="8"
+              th:src="@{/asset/img/slider/banner8.jpg}"
+            />
+            <img
+              class="slider-image"
+              id="9"
+              th:src="@{/asset/img/slider/banner9.jpg}"
+            />
+          </div>
+        </div>
+        <div class="slider-main-image">
+          <img id="image01" th:src="@{/asset/img/slider/banner1.jpg}"/>
+          <img id="image02" th:src="@{/asset/img/slider/banner2.jpg}"/>
+          <img id="image03" th:src="@{/asset/img/slider/banner3.jpg}"/>
+          <img id="image04" th:src="@{/asset/img/slider/banner4.jpg}"/>
+          <img id="image05" th:src="@{/asset/img/slider/banner5.jpg}"/>
+          <img id="image06" th:src="@{/asset/img/slider/banner6.jpg}"/>
+          <img id="image07" th:src="@{/asset/img/slider/banner7.jpg}"/>
+          <img id="image08" th:src="@{/asset/img/slider/banner8.jpg}"/>
+          <img id="image09" th:src="@{/asset/img/slider/banner9.jpg}"/>
+        </div>
+      </slider>
+    </div>
+    <!-- End Slider -->
+    
+    <!-- Phần nội dung của trang chủ -->
+    <content>
+      <div class="container-fluid">
+        <div class="row">
+        
+          <!-- Thanh Menu đứng hiển thị thể loại -->
+          <th:block th:include="_type"></th:block>
+          <!-- Kết thúc thanh menu đứng -->
+          
+          <div class="col-md-9 content-page">
+            <!-- Phần nội dung chính -->
+            <!-- Thanh Tìm kiếm Sách -->
+            <th:block th:include="/_search"></th:block>
+            <!--Kết thúc thanh tìm kiếm sách -->
+            
+            <!-- Phần html của hiển thị sản phẩm -->
+            <div class="row">
+              <h4 th:if="${keyword != null && field != 'type'}">
+              	Kết quả tìm kiếm theo từ khóa "<span th:text="${keyword}"></span>"
+              </h4>
+              <div class="col-md-2 imageframe" th:each = "book: ${bookList}">
+                <img class="bookimage" th:src="@{|/bookImage?id=*{book.id}|}" />
+                <div class="imgdesc">
+                  <p>
+                    <a class="nav-product" th:href="@{|/detail?id=*{book.id}|}"><span th:text = "*{book.name}">
+                    </span></a><br/><i
+                    > </i>
+                  </p>
+                  <p id="bookprice">Giá: <span th:text = "*{book.price}"></span> VNĐ</p>
+                  <span style="color: white">...</span>   
+              </div>
+              
+           
+            <!-- Kết thúc phần html hiển thị sản phẩm -->
+          </div>
+        </div>
+      </div>
+      <!-- Kết thúc phần hiện sản phẩm của nội dung trang -->
+    </content>
+
+    <!-- Phần footer của trang web -->
+  
+    <!-- Kết thúc phần html của trang web -->
+  </body>
+</html>

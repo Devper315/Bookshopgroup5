@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+  <head>
+  	<title>Danh sách đơn hàng</title>
+  </head>
+  <body>
+  	<h2>Danh sách đơn hàng</h2>
+	<a th:href="@{/}">Về trang chủ</a>
+  	<div th:each="order: ${orderList}">
+  		<h3>Mã: <span th:text="${order.id}"></span> </h3>
+  		
+		<h3>Danh sách sản phẩm</h3>
+  		<table border="1">
+  			<tr>
+				<td>Tên</td>
+				<td>Số lượng</td>
+				<td>Đơn giá</td>
+				<td>Thành tiền</td>
+			</tr>
+			<tr th:each="orderLine: ${order.orderLineList}">
+				<td th:text="${orderLine.book.name}"></td>
+				<td th:text="${orderLine.quantity}"></td>
+				<td th:text="${orderLine.book.price}"></td>
+				<td th:text="${orderLine.amount}"></td>
+			</tr>
+  		</table>
+		<h3>Tổng: <span th:text="${order.amount}"></span> VNĐ</h3>
+		<h3>Ngày tạo: <span th:text="${order.dateCreate}"></span></h3>
+		<h3>Trạng thái: 
+			<span th:if="${order.isDone == true}">Đã duyệt</span>
+			<span th:if="${order.isDone == false}">Chưa duyệt</span>
+		</h3>
+		<h3 th:if="${order.isDone == true}">
+			Ngày duyệt: <span th:text="${order.dateApproval}"></span>
+		</h3>
+		<th:block sec:authorize="hasRole('ADMIN')">
+			<a th:href="@{|/approval?orderID=${order.id}&action=approval|}">Duyệt đơn</a>
+			<a th:href="@{|/approval?orderID=${order.id}&action=cancel|}">Hủy duyệt</a>
+		</th:block>
+	</div>
+	
+	
+  </body>
+	  
+</html>

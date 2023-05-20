@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+  
+  <body>
+  
+    <header>
+      <!-- Menu Bar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top menu-horizontal">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav menu-horizontal-text">
+            <li><a th:href="@{/}">Trang Chủ</a></li>
+            <li><a th:href="@{/}">Sự Kiện</a></li>
+            <li><a th:href="@{/}">Khuyến Mãi</a></li>
+            <li><a th:href="@{/}">Liên Hệ</a></li>
+           	<li sec:authorize="hasRole('ADMIN')">
+           		<a th:href="@{/add-book}">Thêm sách</a></li>
+           	<li sec:authorize="hasRole('ADMIN')">
+              <a th:href="@{/}">Xem thống kê</a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right menu-horizontal-text">
+          	
+            <li sec:authorize = "!isAuthenticated()">
+            	<a th:href="@{/login}">Đăng nhập</a></li>
+            <li sec:authorize = "!isAuthenticated()">
+            	<a th:href="@{/signup}">Đăng ký</a></li>
+            <li sec:authorize = "hasAnyRole('USER', 'ADMIN')">
+            	<a th:href="@{/orderList}">Xem danh sách đơn hàng</a></li>
+            <li sec:authorize = "hasRole('USER')">
+            	<a th:href="@{/cart}">Giỏ hàng/<span th:text="${cartInfo.amount}"></span>VNĐ</a></li>
+         	<li sec:authorize = "isAuthenticated()">
+            	<a th:href="@{/logout}">Đăng xuất</a></li> 
+         </ul>
+        </div>
+      </nav>
+      <!-- End of Navigation Bar -->
+    </header>
+</body>
+</html>

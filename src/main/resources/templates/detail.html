@@ -1,0 +1,116 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Book | Chi tiết</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+    </head>
+    	<th:block th:include="/_header"></th:block>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>        
+        <!-- Link CSS -->
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/detail.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/slider.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/navigation.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/menu-vertical.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/footer.css" />
+        <link rel="stylesheet" type="text/css" href="../asset/css/search-bar.css"/>
+        <!-- Link JS -->
+        <script src="../jquery/slider.js"></script>
+        <!-- Phần nội dung của trang chủ -->
+        <content>         
+            <div class="container-fluid detail-container">
+                <div class="row">
+                    <!-- Thanh Menu đứng -->
+                    <nav class="col-md-2 menu-vertical">                
+                        <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="58" data-offset-bottom="250">
+                            <li th:each = "type: ${typeList}" class="menu-vertical-text">
+				                <a th:href="@{|/search?keyword=${type.name}&field=type|}" class="">
+				                	<span th:text = "${type.name}"></span>
+				                </a>
+				              </li>
+                        </ul>
+                    </nav>
+                    <!-- Kết thúc thanh menu đứng -->
+                    <div class="col-md-9 detail-page">
+                        <!-- Phần nội dung chính -->
+                        <!-- Thanh Tìm kiếm Sách -->
+						<th:block th:include="/_search"></th:block>
+                        <!--Kết thúc thanh tìm kiếm sách -->
+                        <!-- Phần html của hiển thị sản phẩm -->
+                        <div class="row book-detail" th:object="${book}">
+                            <img class="book-image" th:src="@{|/bookImage?id=*{id}|}"/>
+                            <div class="book-information">
+                                <p>Tên sách : <span th:text="*{name}"></span><br></p>
+                                
+                                <p>Tác giả : <span th:text="*{printAuthors()}"></span><br></p>
+                                <p>Thể loại: <span th:text="*{printTypes()}"></span></p>
+                                <p>Giá tiền : <span th:text="*{price}"></span> VNĐ<br></p>
+                                <p>Nhà xuất bản: <span th:text="*{publisher}"></span></p>
+                                <p>Ngày xuất bản : <span th:text="*{publishingDate}"></span><br></p>
+                                <p sec:authorize = "hasRole('ADMIN')">Số đơn hàng đang chờ: <span th:text="${waitingNumber}"></span> </p>
+                                <a sec:authorize = "!hasRole('ADMIN')" 
+                                   class="add-to-cart" th:href="@{|/buy?bookID=*{id}|}">
+                                	Thêm vào giỏ hàng</a>
+                                <a sec:authorize = "hasRole('ADMIN')" 
+                                   class="add-to-cart" th:href="@{|/edit-book?bookID=*{id}|}">
+                                	Sửa sản phẩm</a>
+                                <a sec:authorize = "hasRole('ADMIN')"
+                                   th:if="${waitingNumber == 0}"
+                                   class="add-to-cart" th:href="@{|/edit-book?bookID=*{id}&action=delete&waitingNumber=${waitingNumber}|}">
+                                    Xóa sản phẩm</a>
+
+                            </div>
+                            <div class="book-introduce"> 
+                                <h1>Giới thiệu sách</h1>
+                                <p class="book-summary">
+                                	<span th:text="*{description}"></span>
+                                </p>
+                                
+                            </div>
+                            
+                        </div>
+                        <!-- Kết thúc phần html hiển thị sản phẩm -->
+                    </div>
+                </div>
+            </div>
+            <!-- Kết thúc phần hiện sản phẩm của nội dung trang -->
+        </content> 
+    
+        <!-- Phần footer của trang web -->
+        <footer>
+            <!--<div class="footer-background"></div>-->
+            <div class="social-network">
+                <div class="social-network-title">Kết nối với chúng tôi</div>
+                <div class="social-network-button">
+                    <span class="facebook-button"></span>
+                    <span class="google-button"></span>
+                    <span class="twitter-button"></span>
+                    <span class="pinterest-button"></span>
+                </div>             
+            </div>
+            <a class="service" href="#">Dịch vụ</a>
+            <a class="policy" href="#">Chính sách</a>
+            <div class="location">
+                <div class="location-title">
+                    Địa chỉ của chúng tôi
+                </div>
+                
+            </div>
+            <div class="contact">
+                <div class="contact-title">
+                    Liên hệ
+                </div>
+                <div class="contact-phone">
+                    Hotline (1) : 087748352 <br><br>
+                    Hotline (2) : 089693447 <br><br>
+                    SĐT : 0915-505-325 <br>
+                </div>
+            </div>
+        </footer>
+        <!-- Kết thúc phần html của trang web -->
+    </body>
+</html>

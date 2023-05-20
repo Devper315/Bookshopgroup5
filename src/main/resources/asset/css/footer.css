@@ -1,0 +1,85 @@
+/* Phần css của footer */
+footer {
+  position: relative;
+  top: 50px;
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+  border-top: 2px solid lightgray;
+  background-color: white !important;
+  margin: 0px 14px;
+  justify-content: space-between;
+}
+
+.social-network {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% / 3);
+  height: 80px;
+}
+/* Dòng chữ "Kết nối với chúng tôi" */
+.social-network-title {
+  font-weight: bold;
+}
+.social-network-button {
+  width: 210px;
+  height: 31px;
+}
+.facebook-button,
+.google-button,
+.twitter-button,
+.pinterest-button {
+  float: left;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.social {
+  box-sizing: content-box;
+  transform: scale(1.1);
+  text-align: center;
+}
+/* Phần css của nút dịch vụ và chín sách */
+.policy-link {
+  margin-top: 32px;
+}
+.service,
+.policy {
+  width: auto;
+  height: 20px;
+  color: black;
+  display: block;
+}
+.service {
+  top: 105px;
+}
+.policy {
+  top: 135px;
+}
+.service:hover,
+.policy:hover {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+/* Phần css của địa chỉ */
+.location {
+  width: calc(100% / 3);
+  height: 150px;
+  margin-right: 60px;
+}
+.location-title {
+  font-weight: bold;
+}
+
+.footer-content {
+  display: flex;
+}
+
+.contact {
+  width: calc(100% / 3);
+}

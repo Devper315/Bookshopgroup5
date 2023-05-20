@@ -1,0 +1,150 @@
+html {
+  height: 100%;
+}
+body {
+  color: #5a5a5a;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-center {
+  margin-bottom: 20px;
+}
+
+.nav-header {
+  background-color: #9ba076;
+}
+
+nav .container {
+  margin-left: 15px;
+  display: flex;
+  justify-self: space-between;
+}
+
+.nav-header1 {
+  margin-right: -180px;
+}
+
+.nav-item:hover {
+  background-color: #090909;
+  cursor: pointer;
+}
+
+.hinhdaidien {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+img {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.toright {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 
+form {
+    display: -webkit-box;
+    margin-left: 250px;
+   
+} */
+
+.btn {
+  cursor: pointer;
+  outline: none;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary {
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #0275d8;
+  border-color: #0275d8;
+}
+
+.close {
+  color: #aaaaaa;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#cart {
+  font-size: 15px;
+  color: #fff;
+  background: #c7b200;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  outline: none;
+  margin-left: 1rem;
+  padding: 12px;
+  cursor: pointer;
+}
+
+#cart:hover {
+  border-color: #fff;
+}
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+    transform: scale(3);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
