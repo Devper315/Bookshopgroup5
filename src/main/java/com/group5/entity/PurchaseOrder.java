@@ -53,6 +53,6 @@ public class PurchaseOrder {
 	public PurchaseOrder (CartInfo cartInfo) {
 		this.dateCreate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
 		this.customer = cartInfo.getCustomer();
-		this.amount = cartInfo.getAmount();
+		this.amount = cartInfo.getTotalAmount();
 	}
 }

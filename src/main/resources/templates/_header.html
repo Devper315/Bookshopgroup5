@@ -29,7 +29,7 @@
             <li sec:authorize = "hasAnyRole('USER', 'ADMIN')">
             	<a th:href="@{/orderList}">Xem danh sách đơn hàng</a></li>
             <li sec:authorize = "hasRole('USER')">
-            	<a th:href="@{/cart}">Giỏ hàng/<span th:text="${cartInfo.amount}"></span>VNĐ</a></li>
+            	<a th:href="@{/cart}">Giỏ hàng/<span th:text="${cartInfo.cartLines.size()}"></span> sản phẩm</a></li>
          	<li sec:authorize = "isAuthenticated()">
             	<a th:href="@{/logout}">Đăng xuất</a></li> 
          </ul>

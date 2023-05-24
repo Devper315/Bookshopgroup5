@@ -69,4 +69,13 @@ public class CartInfo {
 		}
 		return amount;
 	}
+	
+	public Integer getDeliveryCharges() {
+		Long deliveryCharges = Math.round(getAmount() * 10 / 100.0);
+		return Integer.valueOf(String.valueOf(deliveryCharges));
+	}
+	
+	public Integer getTotalAmount() {
+		return getAmount() + getDeliveryCharges();
+	}
 }

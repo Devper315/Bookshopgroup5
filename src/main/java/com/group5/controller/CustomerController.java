@@ -72,6 +72,7 @@ public class CustomerController {
 		String remoteUser = request.getRemoteUser();
 		Account account = accountRepository.findByUserName(remoteUser);
 		Customer customer = customerRepository.findByAccount(account);
+		System.out.println(customer.getFullName());
 		CartInfo cartInfo = Utils.getCartInSession(request);
 		cartInfo.setCustomer(customer);
 		model.addAttribute(cartInfo);
