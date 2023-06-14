@@ -15,6 +15,7 @@ public class AccountService implements UserDetailsService {
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		Account account = accountRepository.findByUserName(userName);
@@ -22,6 +23,14 @@ public class AccountService implements UserDetailsService {
 			throw new UsernameNotFoundException("Tài khoản không tồn tại");
 		}
 		return new AccountDetails(account);
+	}
+	
+	public Account findByUserName(String userName) {
+		return accountRepository.findByUserName(userName);
+	}
+	
+	public Account save(Account account) {
+		return accountRepository.save(account);
 	}
 
 }

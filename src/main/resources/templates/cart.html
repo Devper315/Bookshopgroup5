@@ -61,7 +61,7 @@
 	         <a th:href="@{/}">Xem danh sách mặt hàng</a>
 	      </th:block>
 	      <th:block th:if="${cartInfo != null && cartInfo.cartLines != null && !cartInfo.cartLines.empty}">
-            <form method="POST" th:object="${cartInfo}">
+            <form method="POST" th:object="${cartInfo}" th:action="@{/pay}">
             <div class="row">   
             
                 <div class="col col-md-12">
@@ -74,42 +74,44 @@
                                 <th>Tên sách</th>
                                 <th>Số lượng</th>
                                 <th>Đơn giá</th>
-                                <th>Thành tiền</th>
                                 <th></th>
                             </tr>
                         </thead>
                         
                         <tbody id="datarow">
+                        
                             <tr th:each = "cartLine: ${cartInfo.cartLines}" >
+                            
                                 <td><span th:text = "${cartInfo.cartLines.indexOf(cartLine)+1}"></span></td>
                                 <td>
                                     <img th:src="@{|/bookImage?id=${cartLine.book.id}|}" class="hinhdaidien">
                                 </td>
                                 <td><span th:text = "${cartLine.book.name}"></span></td>
-                                <td class="text-right"><input type="number" th:value="${cartLine.quantity}"></td>
+                                <td class="text-right"><input type="number" 
+                                	th:name="${'quantity' + cartInfo.cartLines.indexOf(cartLine)}" th:value="${cartLine.quantity}"></td>
                                 <td class="text-right"><span th:text = "${cartLine.book.price}"></span></td>
-                                <td class="text-right"><span th:text = "${cartLine.getAmount()}"></span></td>
                                 <td>
                                     <a id="delete_1" data-sp-ma="2" class="btn btn-danger btn-delete-sanpham"
                                        th:href="@{|/removeBook?bookID=${cartLine.book.id}|}">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
 
-                                    <a id="update_1" data-sp-ma="6" class="btn btn-success btn-update-sanpham">
-                                        <i class="fa fa-refresh" aria-hidden="true"></i>    Cập nhật SL
-                                    </a>
+                                    
                                 </td>
-                            </tr>                         
+                            </tr> 
+                                                    
                         </tbody>
+                        
                     </table>
+                    
                   
                     <div class="toright">
                         <a th:href="@{/}" class="btn btn-warning btn-md"><i class="fa fa-arrow-left"
                             aria-hidden="true"></i>&nbsp;Quay về trang chủ</a>
-                        <a th:href="@{/pay}" class="btn btn-primary btn-md"><i
-                            class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Thanh toán</a>
+                        <button type="submit" class="btn btn-primary btn-md"><i
+                            class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Thanh toán</button>
                     </div>
-                    
+
                 </div>
                 
             </div>

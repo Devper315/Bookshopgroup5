@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartInfo {
 	private Customer customer;
+	
 
 	private List<CartLineInfo> cartLines = new ArrayList<CartLineInfo>();
 

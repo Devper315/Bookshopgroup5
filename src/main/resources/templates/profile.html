@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-100">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -55,7 +56,7 @@
         <div class="navbar-collapse collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="../html/homepage.html"
+              <a class="nav-link" th:href="@{/}"
                 >Trang chủ <span class="sr-only">(current)</span></a
               >
             </li>
@@ -89,21 +90,18 @@
           <div class="col-md-4 mt-1">
             <div class="card text-center sidebar">
               <div class="card-body">
-                <img
-                  src="../asset/img/book/hdd.webp"
-                  alt=""
-                  class="rounded-circle"
-                  width="150"
-                />
+                
                 <div class="mt-3">
-                  <h3>Huy Bui</h3>
-                  <a href="">Trang chủ</a>
+                  <h3 th:text="${customer.fullName}"></h3>
+                  <a th:href="@{/}">Trang chủ</a>
                   <a href="#">Đổi mật khẩu</a>
                   <a href="#">Đăng xuất</a>
                 </div>
               </div>
             </div>
           </div>
+          <form th:action="@{/profile}" th:object="${customer}" method="POST">
+          <input type="hidden" name="id" th:value="${customer.id}">
           <div class="col-md-8 mt-1">
             <div class="card mb-3 content">
               <h1 class="m-3 pt-3">Thông tin cá nhân</h1>
@@ -112,8 +110,8 @@
                   <div class="col-md-3">
                     <h5>Họ tên</h5>
                   </div>
-                  <div class="col-md-7 text-secondary">Huy Bui</div>
-                  <div class="col-md-2"><i class="fa-solid fa-pen"></i></div>
+                  <div class="col-md-7 text-secondary">
+                  <input name="fullName" th:value="${customer.fullName}"></div>
                 </div>
                 
                 <hr />
@@ -122,29 +120,32 @@
                   <div class="col-md-3">
                     <h5>Email</h5>
                   </div>
-                  <div class="col-md-7 text-secondary">huy@gmail.com</div>
-                  <div class="col-md-2"><i class="fa-solid fa-pen"></i></div>
+                  <div class="col-md-7 text-secondary">
+                  <input name="email" th:field="*{account.email}" disabled="disabled"/></div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-md-3">
                     <h5>Số điện thoại</h5>
                   </div>
-                  <div class="col-md-7 text-secondary">0123456789</div>
-                  <div class="col-md-2"><i class="fa-solid fa-pen"></i></div>
+                  <div class="col-md-7 text-secondary">
+                  <input name="phone" 
+                  		 th:value="${customer.phone}"/></div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-md-3">
                     <h5>Địa chỉ</h5>
                   </div>
-                  <div class="col-md-7 text-secondary">Hà đông, hà nội</div>
-                  <div class="col-md-2"><i class="fa-solid fa-pen"></i></div>
+                  <div class="col-md-7 text-secondary">
+                  <input name="address"
+                  		th:value="${customer.address}"/></div>
                 </div>
               </div>
             </div>
-            <button type="button submit" class="btn btn-primary">Xác nhận thay đổi</button>
+            <button type="submit" class="btn btn-primary">Xác nhận thay đổi</button>
           </div>
+          </form>
         </div>
       </div>
     </div>

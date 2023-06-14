@@ -28,7 +28,8 @@ public class Admin {
 	
 	private String birthday;
 	
-	private String email;
+	private String phone;
+	
 	
 	@OneToOne
 	@JoinColumn(name = "account_id")

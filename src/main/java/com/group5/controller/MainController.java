@@ -34,11 +34,16 @@ import com.group5.form.AccountForm;
 import com.group5.model.CartInfo;
 import com.group5.model.CartLineInfo;
 import com.group5.repository.AccountRepository;
+import com.group5.repository.AdminRepository;
 import com.group5.repository.BookRepository;
 import com.group5.repository.CustomerRepository;
 import com.group5.repository.OrderLineRepository;
 import com.group5.repository.PurchaseOrderRepository;
 import com.group5.repository.TypeRepository;
+import com.group5.service.AccountService;
+import com.group5.service.AdminService;
+import com.group5.service.CustomerService;
+import com.group5.service.PurchaseOrderService;
 import com.group5.utils.Utils;
 import com.group5.validator.AccountValidator;
 
@@ -51,13 +56,13 @@ public class MainController {
 	private TypeRepository typeRepository;
 
 	@Autowired
-	private AccountRepository accountRepository;
+	private AccountService accountService;
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerService customerService;
 
 	@Autowired
-	private PurchaseOrderRepository purchaseOrderRepository;
+	private PurchaseOrderService purchaseOrderService;
 
 	@Autowired
 	private AccountValidator accountValidator;
@@ -66,6 +71,8 @@ public class MainController {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired private OrderLineRepository orderLineRepository;
+	
+	@Autowired private AdminService adminService;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder dataBinder) {
@@ -130,12 +137,8 @@ public class MainController {
 		Customer customer = new Customer();
 		customer.setFullName(accountForm.getFullName());
 		customer.setAccount(account);
-		try {
-			accountRepository.save(account);
-			customerRepository.save(customer);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		accountService.save(account);
+		customerService.save(customer);
 		return "signupSuccess";
 	}
 
@@ -165,22 +168,30 @@ public class MainController {
 		}
 		response.getOutputStream().close();
 	}
+	
 	@GetMapping("/orderList")
 	public String orderList(Model model, HttpServletRequest request) {
-		List<PurchaseOrder> orderList;
-		String remoteUser = request.getRemoteUser();
-		Account account = accountRepository.findByUserName(remoteUser);
-		if (account.getRole().equals("ROLE_ADMIN")) {
-			orderList = purchaseOrderRepository.findAll();
-			model.addAttribute("orderList", orderList);
-			
-		}
-		else {
-			Customer customer = customerRepository.findByAccount(account);
-			orderList = purchaseOrderRepository.findByCustomer(customer);
-			model.addAttribute("orderList", orderList);
-			
-		}
+		List<PurchaseOrder> orderList = purchaseOrderService.findByRole(request);
+		model.addAttribute("orderList", orderList);
 		return "orderList";
 	}
+	
+	@GetMapping("/profile")
+	public String profile(Model model, HttpServletRequest request) {
+		String remoteUser = request.getRemoteUser();
+		Account account = accountService.findByUserName(remoteUser);
+		if(account.getRole().equals("ROLE_USER")) {
+			model.addAttribute("customer", customerService.findByAccount(account));
+		}
+		model.addAttribute("account", account);
+		return "profile";
+	}
+	
+	@PostMapping("/profile")
+	public String profile(HttpServletRequest request) {
+		customerService.update(request);
+		return "redirect:/profile";
+	}
+	
+	
 }

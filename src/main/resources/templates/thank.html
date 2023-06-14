@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-100">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -57,9 +58,8 @@
       referrerpolicy="no-referrer"
     />
     <!-- Custom css - Các file css do chúng ta tự viết -->
-    <link rel="stylesheet" href="../asset/css/thank.css" />
+    <link rel="stylesheet" th:href="@{/css/thank.css}" />
  
-    <!-- <link rel="stylesheet" href="../asset/css/contact.css" /> -->
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
@@ -88,7 +88,7 @@
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../html/homepage.html">Trang chủ <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" th:href="@{/}">Trang chủ <span class="sr-only">(current)</span></a>
                     </li>
                     
                     <li class="nav-item">
@@ -123,25 +123,11 @@
               <div class="col-lg-12">
                 <div class="contact__form__title">
                   <h3> Cảm ơn sự quan tâm và ủng hộ của quý khách </h3><br />
-                  <h3>Gửi lời nhắn đến chúng tôi: </h3>
+                  <h3>Vui lòng kiểm tra lại trong danh sách đơn hàng</h3>
                 </div>
               </div>
             </div>
 
-            <form action="#">
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Họ tên" />
-                </div>
-                <div class="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Email" />
-                </div>
-                <div class="col-lg-12 text-center">
-                  <textarea placeholder="...."></textarea>
-                  <button type="submit" class="site-btn">Gửi</button>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
     </main>

@@ -47,6 +47,13 @@ public class PurchaseOrder {
 	@Column(name = "done")
 	private Boolean isDone;
 	
+	private String note;
+	
+	private String address;
+	
+	@Column(name = "delivery_charges")
+	private Integer deliveryCharges;
+	
 	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
 	private Collection<OrderLine> orderLineList;
 	
@@ -54,5 +61,6 @@ public class PurchaseOrder {
 		this.dateCreate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
 		this.customer = cartInfo.getCustomer();
 		this.amount = cartInfo.getTotalAmount();
+		this.deliveryCharges = cartInfo.getDeliveryCharges();
 	}
 }
